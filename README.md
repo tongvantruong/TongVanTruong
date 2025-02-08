@@ -24,7 +24,7 @@ _Assuming this input will always produce a result lesser than `Number.MAX_SAFE_I
 
 ### How to test
 
-Run the bellow command to check the results
+Run the below command to check the results
 
 ```
 node src/problem1/sum.js
