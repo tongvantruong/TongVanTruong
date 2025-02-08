@@ -1,16 +1,31 @@
-## Hi there 👋
+## Problem 1
 
-<!--
-**tongvantruong/TongVanTruong** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+### Task
 
-Here are some ideas to get you started:
+Provide 3 unique implementations of the following function in JavaScript.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+**Input**: `n` - any integer
+
+_Assuming this input will always produce a result lesser than `Number.MAX_SAFE_INTEGER`_.
+
+**Output**: `return` - summation to `n`, i.e. `sum_to_n(5) === 1 + 2 + 3 + 4 + 5 === 15`.
+
+### Solutions
+
+- `n` is any integer so I assume it can be either positive or negative, then `sum_to_n(-5) === -1 + -2 + -3 + -4 + -5 === -15`
+- I named all the functions using CamelCase as it is considered best practice
+- I generally avoid adding comments to my code so I named the function a bit longer but easier to read
+
+- `sumToNWithForLoop`: Time Complexity is `O(n)`
+- `sumToNWithWhileLoop`: Time Complexity is `O(n)`
+- `sumToNWithFormula`: Time Complexity is `O(1)` which makes this the best option
+
+- [Open Code](src/problem1/sum.js)
+
+### How to test
+
+Run the bellow command to check the results
+
+```
+node src/problem1/sum.js
+```
