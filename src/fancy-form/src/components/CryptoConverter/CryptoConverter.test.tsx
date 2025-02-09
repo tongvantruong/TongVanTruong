@@ -90,6 +90,19 @@ describe("CryptoConverter", () => {
       expect(fromDropdown).toHaveTextContent("USD");
       expect(toDropdown).toHaveTextContent("WBTC");
     });
+    it("calculates and displays the correct result when amount is changed", async () => {
+      render(<CryptoConverter />);
+
+      const input = screen.getByTestId("amount-input");
+      fireEvent.change(input, { target: { value: "100" } });
+
+      await waitFor(() => {
+        const resultLabel = screen.getByTestId("result-text");
+        expect(resultLabel).toHaveTextContent(
+          "100 WBTC = 2600282.202020202 USD"
+        ); // 100 * 26002.82202020202 = 2600282.202020202
+      });
+    });
     it("calculates and displays the correct result when the update button is clicked", async () => {
       render(<CryptoConverter />);
 
