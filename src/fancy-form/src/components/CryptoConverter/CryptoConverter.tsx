@@ -5,7 +5,8 @@ import { NumberFormatValues, NumericFormat } from "react-number-format";
 import currencyData from "../../data/currencies.json";
 import { Currency } from "../../types/currency"; // TODO: set alias to import @/
 
-const DEFAULT_TITLE = "Cryptocurrency Converter" as const;
+const DEFAULT_TITLE: string = "Cryptocurrency Converter" as const;
+const DEFAULT_AMOUNT: number = 1 as const;
 
 const currencies = currencyData.map((c: Currency) => {
   const iconPath = `/icons/${c.currency}.svg`;
@@ -27,7 +28,7 @@ const CryptoConverter = ({
   title = DEFAULT_TITLE,
   theme = "light",
 }: FancyFormProps) => {
-  const [amount, setAmount] = useState<number>(1);
+  const [amount, setAmount] = useState<number>(DEFAULT_AMOUNT);
   const [fromCurrency, setFromCurrency] = useState<CurrencyType | undefined>(
     defaultFromCurrency
   );
@@ -84,16 +85,16 @@ const CryptoConverter = ({
   };
 
   const handleUpdate = async () => {
+    if (isLoading || amount <= 0) return;
+
     setIsLoading(() => true);
     await fetchData();
     setIsLoading(() => false);
   };
 
   return (
-    <div className={`converter converter--${theme}`}>
-      <h2 className="converter__title" data-testid="title">
-        {title}
-      </h2>
+    <div className={`converter converter--${theme}`} data-testid="converter">
+      <h2 className="converter__title">{title}</h2>
       <NumericFormat
         className="converter__input"
         placeholder="Enter amount to convert"
@@ -101,20 +102,22 @@ const CryptoConverter = ({
         allowLeadingZeros
         onValueChange={handleAmountChange}
         disabled={isLoading}
+        data-testid="amount-input"
       />
       <div className="converter__selects">
         <Select
           onChange={handleFromCurrencyChange}
-          defaultValue={defaultFromCurrency}
           options={currencies}
           value={fromCurrency}
           isDisabled={isLoading}
           formatOptionLabel={getFormattedOptionLabel}
+          aria-label="Select From Currency"
         />
         <button
           className="converter__selects-swap"
           disabled={isLoading}
           onClick={swapCurrencies}
+          data-testid="swap-button"
         >
           <picture className="converter__selects-swap-picture">
             <source srcSet="/icons/swap.svg" media="(min-width: 768px)" />
@@ -128,24 +131,27 @@ const CryptoConverter = ({
         </button>
         <Select
           onChange={handleToCurrencyChange}
-          defaultValue={defaultToCurrency}
           value={toCurrency}
           options={currencies}
           isDisabled={isLoading}
           formatOptionLabel={getFormattedOptionLabel}
+          aria-label="Select To Currency"
         />
       </div>
       <button
         className="converter__button"
         disabled={isLoading}
         onClick={handleUpdate}
+        data-testid="update-button"
       >
         Update
       </button>
       {isLoading ? (
-        <p className="converter__result">Loading...</p>
+        <p className="converter__result" data-testid="loading-text">
+          Loading...
+        </p>
       ) : (
-        <p className="converter__result">
+        <p className="converter__result" data-testid="result-text">
           {amount} {fromCurrency?.label} = <b>{convertedAmount} </b>
           {toCurrency?.label}
         </p>
