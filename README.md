@@ -50,7 +50,9 @@ Create a currency swap form based on the template provided in the folder. A user
 ### How to test
 - You can checkout the code and run the below command to test
   ```
-  npm i & cd src/fancy-form & npm run dev
+  cd src/fancy-form
+  npm i
+  npm run dev
   ```
 
   Access: http://localhost:5173/
