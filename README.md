@@ -29,3 +29,32 @@ Run the below command to check the results
 ```
 node src/problem1/sum.js
 ```
+
+## Problem 2
+
+### Task
+Create a currency swap form based on the template provided in the folder. A user would use this form to swap assets from one currency to another.
+
+### Solution Summary
+- Responsive layout on big and small screen
+- Support dark mode - can change code to see it
+- Live convert when typing on the input
+- Validate input with [react-number-format](https://www.npmjs.com/package/react-number-format)
+- Allow search on currency Dropdowns using [react-select](https://www.npmjs.com/package/react-select)
+- Swap the currencies
+- Update value from mocked API, show loading and disabled all the input, buttons, selects
+
+### Unit test results
+<img width="1027" alt="image" src="https://github.com/user-attachments/assets/2a102ef9-10d4-4928-a5eb-229effe9a413" />
+
+### How to test
+- You can checkout the code and run the below command to test
+  ```
+  npm i & cd src/fancy-form & npm run dev
+  ```
+
+  Access: http://localhost:5173/
+
+- Or check this video on Google Drive: https://drive.google.com/file/d/1K1pzJPLsMig_qQEUJs_6TMQ7V6DuBBWm
+
+
