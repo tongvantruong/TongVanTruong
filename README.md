@@ -44,6 +44,9 @@ Create a currency swap form based on the template provided in the folder. A user
 - Swap the currencies
 - Update value from mocked API, show loading and disabled all the input, buttons, selects
 
+### Note
+I left some TODO comments in the code, as I would update it further if I have more time or while working on it.
+
 ### Unit test results
 <img width="1027" alt="image" src="https://github.com/user-attachments/assets/2a102ef9-10d4-4928-a5eb-229effe9a413" />
 
