@@ -29,10 +29,20 @@ const sumToGivenIntegerWithFormula = (n) => {
   return n < 0 ? -sum : sum;
 };
 
+const sumToGivenIntegerWithRecursion = (n) => {
+  const limit = Math.abs(n);
+  if (limit === 0) return 0;
+
+  const sum = limit + sumToGivenIntegerWithRecursion(limit - 1);
+  return n < 0 ? -sum : sum;
+};
+
 console.log(`For Loop: ${sumToGivenIntegerWithForLoop(5)}`);
 console.log(`While Loop: ${sumToGivenIntegerWithForLoop(5)}`);
 console.log(`Formula: ${sumToGivenIntegerWithForLoop(5)}`);
+console.log(`Formula: ${sumToGivenIntegerWithRecursion(5)}`);
 
 console.log(`For Loop: ${sumToGivenIntegerWithForLoop(-5)}`);
 console.log(`While Loop: ${sumToGivenIntegerWithForLoop(-5)}`);
 console.log(`Formula: ${sumToGivenIntegerWithForLoop(-5)}`);
+console.log(`Formula: ${sumToGivenIntegerWithRecursion(-5)}`);

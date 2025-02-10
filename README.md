@@ -19,6 +19,7 @@ _Assuming this input will always produce a result lesser than `Number.MAX_SAFE_I
 - `sumToGivenIntegerWithForLoop`: Time Complexity is `O(n)`
 - `sumToGivenIntegerWithWhileLoop`: Time Complexity is `O(n)`
 - `sumToGivenIntegerWithFormula`: Time Complexity is `O(1)` which makes this the best option
+- `sumToGivenIntegerWithRecursion`: Time Complexity is `O(n)`
 
 - [Open Code](src/problem1/sum.js)
 
@@ -33,9 +34,11 @@ node src/problem1/sum.js
 ## Problem 2
 
 ### Task
+
 Create a currency swap form based on the template provided in the folder. A user would use this form to swap assets from one currency to another.
 
 ### Solution Summary
+
 - Responsive layout on big and small screen
 - Support dark mode - can change code to see it
 - Live convert when typing on the input
@@ -45,13 +48,17 @@ Create a currency swap form based on the template provided in the folder. A user
 - Update value from mocked API, show loading and disabled all the input, buttons, selects
 
 ### Note
+
 I left some TODO comments in the code, as I would update it further if I have more time or while working on it.
 
 ### Unit test results
+
 <img width="1027" alt="image" src="https://github.com/user-attachments/assets/2a102ef9-10d4-4928-a5eb-229effe9a413" />
 
 ### How to test
+
 - You can checkout the code and run the below command to test
+
   ```
   cd src/fancy-form
   npm i
@@ -73,127 +80,137 @@ I left some TODO comments in the code, as I would update it further if I have mo
     - React Hooks
   2. You should also provide a refactored version of the code, but more points are awarded to accurately stating the issues and explaining correctly how to improve them.
 
-  ```ts
-  interface WalletBalance {
-    currency: string;
-    amount: number;
-  }
-  interface FormattedWalletBalance {
-    currency: string;
-    amount: number;
-    formatted: string;
-  }
-  
-  interface Props extends BoxProps {
-  
-  }
-  const WalletPage: React.FC<Props> = (props: Props) => {
-    const { children, ...rest } = props;
-    const balances = useWalletBalances();
-    const prices = usePrices();
-  
-  	const getPriority = (blockchain: any): number => {
-  	  switch (blockchain) {
-  	    case 'Osmosis':
-  	      return 100
-  	    case 'Ethereum':
-  	      return 50
-  	    case 'Arbitrum':
-  	      return 30
-  	    case 'Zilliqa':
-  	      return 20
-  	    case 'Neo':
-  	      return 20
-  	    default:
-  	      return -99
-  	  }
-  	}
-  
-    const sortedBalances = useMemo(() => {
-      return balances.filter((balance: WalletBalance) => {
-  		  const balancePriority = getPriority(balance.blockchain);
-  		  if (lhsPriority > -99) {
-  		     if (balance.amount <= 0) {
-  		       return true;
-  		     }
-  		  }
-  		  return false
-  		}).sort((lhs: WalletBalance, rhs: WalletBalance) => {
-  			const leftPriority = getPriority(lhs.blockchain);
-  		  const rightPriority = getPriority(rhs.blockchain);
-  		  if (leftPriority > rightPriority) {
-  		    return -1;
-  		  } else if (rightPriority > leftPriority) {
-  		    return 1;
-  		  }
+```ts
+interface WalletBalance {
+  currency: string;
+  amount: number;
+}
+interface FormattedWalletBalance {
+  currency: string;
+  amount: number;
+  formatted: string;
+}
+
+interface Props extends BoxProps {}
+const WalletPage: React.FC<Props> = (props: Props) => {
+  const { children, ...rest } = props;
+  const balances = useWalletBalances();
+  const prices = usePrices();
+
+  const getPriority = (blockchain: any): number => {
+    switch (blockchain) {
+      case "Osmosis":
+        return 100;
+      case "Ethereum":
+        return 50;
+      case "Arbitrum":
+        return 30;
+      case "Zilliqa":
+        return 20;
+      case "Neo":
+        return 20;
+      default:
+        return -99;
+    }
+  };
+
+  const sortedBalances = useMemo(() => {
+    return balances
+      .filter((balance: WalletBalance) => {
+        const balancePriority = getPriority(balance.blockchain);
+        if (lhsPriority > -99) {
+          if (balance.amount <= 0) {
+            return true;
+          }
+        }
+        return false;
+      })
+      .sort((lhs: WalletBalance, rhs: WalletBalance) => {
+        const leftPriority = getPriority(lhs.blockchain);
+        const rightPriority = getPriority(rhs.blockchain);
+        if (leftPriority > rightPriority) {
+          return -1;
+        } else if (rightPriority > leftPriority) {
+          return 1;
+        }
       });
-    }, [balances, prices]);
-  
-    const formattedBalances = sortedBalances.map((balance: WalletBalance) => {
-      return {
-        ...balance,
-        formatted: balance.amount.toFixed()
-      }
-    })
-  
-    const rows = sortedBalances.map((balance: FormattedWalletBalance, index: number) => {
+  }, [balances, prices]);
+
+  const formattedBalances = sortedBalances.map((balance: WalletBalance) => {
+    return {
+      ...balance,
+      formatted: balance.amount.toFixed(),
+    };
+  });
+
+  const rows = sortedBalances.map(
+    (balance: FormattedWalletBalance, index: number) => {
       const usdValue = prices[balance.currency] * balance.amount;
       return (
-        <WalletRow 
+        <WalletRow
           className={classes.row}
           key={index}
           amount={balance.amount}
           usdValue={usdValue}
           formattedAmount={balance.formatted}
         />
-      )
-    })
-  
-    return (
-      <div {...rest}>
-        {rows}
-      </div>
-    )
-  }
-  ```
+      );
+    }
+  );
+
+  return <div {...rest}>{rows}</div>;
+};
+```
+
 </details>
 
 ### Solutions
+
 1. All types that can be reused or generic (not only use in this component) should be moved the other files
 2. I prefer using `type` over `interface` in React component because of shorter sytax, consistency as type can be used for any type including Primitive Types (string, number, boolean). I will use `interface` in case I want to take advatage if it's merging feature
 3. `FormattedWalletBalance` should extends `WalletBalance` to avoid duplicated code
 4. `Props` should be renamed to a meaningful name. e.g. `WalletPageProps`
 5. Destruture props inline is easier to read. And I would rename `rest` to `otherProps`
+
 ```ts
 const WalletPage: React.FC<WalletPageProps> = ({
   children,
   ...otherProps
-}: WalletPageProps) => {}
+}: WalletPageProps) => {};
 ```
+
 6. Should set type for all variables. e.g.
+
 ```ts
 const balances: WalletBalance[] = useWalletBalances();
 const prices: Price[] = usePrices();
-const sortedBalances: WalletBalance[]
-const formattedBalances: FormattedWalletBalance[]
+const sortedBalances: WalletBalance[];
+const formattedBalances: FormattedWalletBalance[];
 ```
+
 7. `getPriority` function should be refactored
+
 - Don't use `any`, let create type for it. `blockchain` can be a property of `WalletBalance` and it can be a Union type.
 - The return type is `number`. It should be typed as `Priority` to remove magic numbers (100, 50, 30..., -99)
 - Combine 2 case statement that returns a same value
+
 8. `sortedBalances` should be refactored:
+
 - `predicate` in `filter` should be extracted and named properly. It can also be a helper/util function that is tested by unit test
 - the condition `balance.amount <= 0` in filter seems wrong. We want to sort the balances by priority. Why we need to rermove all `balance.amount > 0`? It depends on bussiness and other codes. So I will just leave it as it is.
 - `.sort((lhs: WalletBalance, rhs: WalletBalance)` should name the meaningful variables. I guess `lhs` = `left hand side` but code should let us guess like that!
+
 ```ts
 .sort((leftBalance: WalletBalance, rightBalance: WalletBalance)
 ```
+
 - Extract function in `sort` and name it properly, e.g. `descendingOrder`. Simplify code inside the sort: `return rightPriority - leftPriority;`
+
 9. `balance.amount.toFixed()` seems useless. I assume we can format the number to currency or decimal format. `12345` -> `$12,345`.
 10. Should use `formattedBalances` to render data instead of `sortedBalances`
 
-
 Full Code after refactored:
+
 ```ts
 // I assume that all missing imports are existing in other places.
 
@@ -287,5 +304,4 @@ const WalletPage: React.FC<WalletPageProps> = ({
 
   return <div {...otherProps}>{rows}</div>;
 };
-
 ```
