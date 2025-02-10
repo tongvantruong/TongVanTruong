@@ -37,12 +37,24 @@ const sumToGivenIntegerWithRecursion = (n) => {
   return n < 0 ? -sum : sum;
 };
 
+const sumToGivenIntegerWithArray = (n) => {
+  const limit = Math.abs(n);
+
+  const sum = Array.from({ length: limit }, (_, index) => index + 1).reduce(
+    (sum, current) => sum + current,
+    0
+  );
+  return n < 0 ? -sum : sum;
+};
+
 console.log(`For Loop: ${sumToGivenIntegerWithForLoop(5)}`);
 console.log(`While Loop: ${sumToGivenIntegerWithForLoop(5)}`);
 console.log(`Formula: ${sumToGivenIntegerWithForLoop(5)}`);
-console.log(`Formula: ${sumToGivenIntegerWithRecursion(5)}`);
+console.log(`Recursion: ${sumToGivenIntegerWithRecursion(5)}`);
+console.log(`Array: ${sumToGivenIntegerWithArray(5)}`);
 
 console.log(`For Loop: ${sumToGivenIntegerWithForLoop(-5)}`);
 console.log(`While Loop: ${sumToGivenIntegerWithForLoop(-5)}`);
 console.log(`Formula: ${sumToGivenIntegerWithForLoop(-5)}`);
-console.log(`Formula: ${sumToGivenIntegerWithRecursion(-5)}`);
+console.log(`Recursion: ${sumToGivenIntegerWithRecursion(-5)}`);
+console.log(`Array: ${sumToGivenIntegerWithArray(-5)}`);

@@ -16,10 +16,11 @@ _Assuming this input will always produce a result lesser than `Number.MAX_SAFE_I
 - I named all the functions using CamelCase as it is considered best practice
 - I generally avoid adding comments to my code so I named the function a bit longer but easier to read
 
-- `sumToGivenIntegerWithForLoop`: Time Complexity is `O(n)`
-- `sumToGivenIntegerWithWhileLoop`: Time Complexity is `O(n)`
+- `sumToGivenIntegerWithForLoop`: Time Complexity is `O(|n|)`
+- `sumToGivenIntegerWithWhileLoop`: Time Complexity is `O(|n|)`
 - `sumToGivenIntegerWithFormula`: Time Complexity is `O(1)` which makes this the best option
-- `sumToGivenIntegerWithRecursion`: Time Complexity is `O(n)`
+- `sumToGivenIntegerWithRecursion`: Time Complexity is `O(|n|)`
+- `sumToGivenIntegerWithArray`: Time Complexity is `O(|n|)`
 
 - [Open Code](src/problem1/sum.js)
 
